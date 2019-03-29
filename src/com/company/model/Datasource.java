@@ -1,8 +1,7 @@
 package com.company.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 
 public class Datasource {
 
@@ -47,7 +46,23 @@ public class Datasource {
         }
     }
 
+public List<Artist> queryArtists(){
+    Statement statement = null;
+    ResultSet results = null;
 
+    try {
+
+    }catch(SQLException e){
+        System.out.println("Query faile" + e.getMessage());
+        return null;
+    } finally {
+        if(statement !=null){
+            statement.close();
+        }
+    }catch (SQLException e){
+        
+    }
+}
 }
 
 
