@@ -57,6 +57,7 @@ public class Datasource {
             statement = conn.createStatement();
             results = statement.executeQuery("SELECT * FROM" + TABLE_ARTISTS);
 
+            //create a list of artist objects to add the instance to the list
             List<Artist> artists = new ArrayList<>();
             while (results.next()) {
                 Artist artist = new Artist();
@@ -64,17 +65,27 @@ public class Datasource {
                 artist.setName(results.getString(COLUMN_ARTISTS_NAME));
                 artists.add(artist);
             }
+            return artists;
+
         } catch (SQLException e) {
             System.out.println("Query failed" + e.getMessage());
             return null;
         } finally {
+
+            try{
+                if(results != null){
+                    results.close();
+                }
+            }catch(SQLException e){
+                System.out.println("Error closing resultset" + e.getMessage());
+            }
 
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-
+                System.out.println("Error closing Statement: " + e.getMessage());
             }
         }
     }

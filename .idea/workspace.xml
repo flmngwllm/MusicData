@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9960872-4a15-4220-b99f-5ac1d948d4e0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/model/Datasource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/model/Datasource.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -53,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/model/Datasource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="77" column="5" lean-forward="true" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
+            <state relative-caret-position="473">
+              <caret line="87" column="79" selection-start-line="87" selection-start-column="79" selection-end-line="87" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -205,8 +204,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/model/Datasource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="77" column="5" lean-forward="true" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
+        <state relative-caret-position="473">
+          <caret line="87" column="79" selection-start-line="87" selection-start-column="79" selection-end-line="87" selection-end-column="79" />
         </state>
       </provider>
     </entry>
