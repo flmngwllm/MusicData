@@ -7,21 +7,36 @@ import java.util.List;
 public class Datasource {
 
     public static final String DB_NAME = "music.db";
-    public static final String CONNECTION_STRING = "jdbc:sqlite:/Users/chaosmegaman/IdeaProjects/Music" + DB_NAME;
+    public static final String CONNECTION_STRING = "jdbc:sqlite:/Users/chaosmegaman/IdeaProjects/Music/" + DB_NAME;
 
     public static final String TABLE_ALBUMS = "albums";
     public static final String COLUMN_ALBUM_ID = "_id";
     public static final String COLUMN_ALBUM_NAME = "name";
     public static final String COLUMN_ALBUM_ARTIST = "artist";
+    public static final int INDEX_ALBUM_ID = 1;
+    public static final int INDEX_ALBUM_NAME = 2;
+    public static final int INDEX_ALBUM_ARTIST = 3;
 
     public static final String TABLE_ARTISTS = "artists";
-    public static final String COLUMN_ARTISTS_ID = "_id";
-    public static final String COLUMN_ARTISTS_NAME = "name";
+    public static final String COLUMN_ARTIST_ID = "_id";
+    public static final String COLUMN_ARTIST_NAME = "name";
+    public static final int INDEX_ARTIST_ID = 1;
+    public static final int INDEX_ARTIST_NAME = 2;
 
     public static final String TABLE_SONGS = "songs";
+    public static final String COLUMN_SONGS_ID = "_id";
     public static final String COLUMN_SONGS_TRACK = "track";
     public static final String COLUMN_SONGS_TITLE = "title";
     public static final String COLUMN_SONGS_ALBUM = "album";
+    public static final int INDEX_SONGS_ID = 1;
+    public static final int INDEX_SONGS_TRACK = 2;
+    public static final int INDEX_SONGS_TITLE = 3;
+    public static final int INDEX_SONGS_ALBUM = 4;
+
+    public static final int ORDER_BY_NONE = 1;
+    public static final int ORDER_BY_ASC =2;
+    public static final int ORDER_BY_DESC = 3;
+
 
 
     //create connection instance
@@ -49,20 +64,33 @@ public class Datasource {
 
 
     //return a list of artists
-    public List<Artist> queryArtists() {
-        Statement statement = null;
-        ResultSet results = null;
+    public List<Artist> queryArtists(int sortOrder) {
 
-        try {
-            statement = conn.createStatement();
-            results = statement.executeQuery("SELECT * FROM" + TABLE_ARTISTS);
+        StringBuilder sb = new StringBuilder("SELECT * FROM ");
+        sb.append(TABLE_ARTISTS);
+        if(sortOrder != ORDER_BY_NONE){
+            sb.append(" ORDER BY ");
+            sb.append(COLUMN_ARTIST_NAME);
+            sb.append(" COLLATE NOCASE ");
+            if(sortOrder == ORDER_BY_DESC) {
+                sb.append("DESC");
+            } else {
+                sb.append("ASC");
+            }
+        }
+
+        //try with resources to close automatically
+        try (Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery(sb.toString())) {
+
+
 
             //create a list of artist objects to add the instance to the list
             List<Artist> artists = new ArrayList<>();
             while (results.next()) {
                 Artist artist = new Artist();
-                artist.setId(results.getInt(COLUMN_ARTISTS_ID));
-                artist.setName(results.getString(COLUMN_ARTISTS_NAME));
+                artist.setId(results.getInt(INDEX_ALBUM_ID));
+                artist.setName(results.getString(INDEX_ALBUM_NAME));
                 artists.add(artist);
             }
             return artists;
@@ -70,23 +98,6 @@ public class Datasource {
         } catch (SQLException e) {
             System.out.println("Query failed" + e.getMessage());
             return null;
-        } finally {
-
-            try{
-                if(results != null){
-                    results.close();
-                }
-            }catch(SQLException e){
-                System.out.println("Error closing resultset" + e.getMessage());
-            }
-
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error closing Statement: " + e.getMessage());
-            }
         }
     }
 }
