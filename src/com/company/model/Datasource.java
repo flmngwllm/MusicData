@@ -199,6 +199,24 @@ ResultSet results = statement.executeQuery(sb.toString())){
             return null;
         }
     }
+
+    public void querySongsMetaData(){
+        String sql = "SELECT * FROM " + TABLE_SONGS;
+
+        try(Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery(sql)) {
+
+            ResultSetMetaData meta = results.getMetaData();
+            int numColumns = meta.getColumnCount();
+            for (int i = 1; i <= numColumns; i++) {
+                System.out.format("Columns %d in the songs table is names %s\n",
+                        i, meta.getColumnName(i));
+            }
+        } catch(SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+
+        }
+    }
 }
 
 
