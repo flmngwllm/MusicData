@@ -283,6 +283,32 @@ ResultSet results = statement.executeQuery(sb.toString())){
     }
 
     //SELECT name, album, track FROM artist_list WHERE title = "Go Your Own Way"
+
+    public List<SongArtist> querySongInfoView(String title) {
+        StringBuilder sb = new StringBuilder(QUERY_VIEW_SONG_INFO);
+        sb.append(title);
+        sb.append("\"");
+
+        System.out.println(sb.toString());
+
+        try(Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery(sb.toString())) {
+
+            List<SongArtist> songArtists = new ArrayList<>();
+            while(results.next()){
+                SongArtist songArtist = new SongArtist();
+                songArtist.setArtistName(results.getString(1));
+                songArtist.setAlbumName(results.getString(2));
+                songArtist.setTrack(results.getInt(3));
+                songArtists.add(songArtist);
+            }
+
+            return songArtists;
+        } catch (SQLException e){
+            System.out.println(" Query failed: " + e.getMessage());
+            return null;
+        }
+    }
 }
 
 
