@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9960872-4a15-4220-b99f-5ac1d948d4e0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music.db" beforeDir="false" afterPath="$PROJECT_DIR$/music.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/model/Datasource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/model/Datasource.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -16,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+            <state relative-caret-position="323">
+              <caret line="52" selection-start-line="52" selection-end-line="52" />
             </state>
           </provider>
         </entry>
@@ -61,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/model/Datasource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="62" column="55" selection-start-line="62" selection-start-column="55" selection-end-line="62" selection-end-column="55" />
+            <state relative-caret-position="172">
+              <caret line="82" column="84" selection-start-line="82" selection-start-column="84" selection-end-line="82" selection-end-column="84" />
             </state>
           </provider>
         </entry>
@@ -136,7 +139,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555010532851" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555012109243" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -184,7 +187,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="708" y="0" width="572" height="800" extended-state="6" />
+    <frame x="732" y="0" width="548" height="800" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.32705882" />
@@ -246,15 +249,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+        <state relative-caret-position="323">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/model/Datasource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="62" column="55" selection-start-line="62" selection-start-column="55" selection-end-line="62" selection-end-column="55" />
+        <state relative-caret-position="172">
+          <caret line="82" column="84" selection-start-line="82" selection-start-column="84" selection-end-line="82" selection-end-column="84" />
         </state>
       </provider>
     </entry>

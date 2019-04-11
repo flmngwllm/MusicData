@@ -60,7 +60,10 @@ public class Datasource {
             " ORDER BY " + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME + ", " +
                     TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " COLLATE NOCASE ";
 
-//CREATE VIEW IF NOT EXIST artist_list AS SELECT artist
+//CREATE VIEW IF NOT EXIST artist_list AS SELECT artist.name, albums.name AS album,
+// songs.track, songs.title FROM songs INNER JOIN albums ON songs.album = albums._id
+// INNER JOIN artists ON albums.artist = artists._id ORDER BY artists.name
+// albums.name, songs.track
 
     public static final String TABLE_ARTIST_SONG_VIEW = "artist_list";
     public static final String CREATE_ARTIST_FOR_SONG_VIEW = "CREATE VIEW IF NOT EXISTS " +
@@ -76,6 +79,10 @@ public class Datasource {
             TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME + ", " +
             TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + ", " +
             TABLE_SONGS + "." + COLUMN_SONGS_TRACK;
+
+    public static final String QUERY_VIEW_SONG_INFO = "SELECT " + COLUMN_ARTIST_NAME + ", " +
+            COLUMN_SONGS_ALBUM + ", " + COLUMN_SONGS_TRACK + " FROM " + TABLE_ARTIST_SONG_VIEW +
+            " WHERE " + COLUMN_SONGS_TITLE + " = \"";
 
 
 
@@ -261,19 +268,21 @@ ResultSet results = statement.executeQuery(sb.toString())){
 
     // create method for the view
     public boolean createViewForSongArtists(){
-        try(Statement statement = conn.createStatement();
-            ResultSet results = statement.executeQuery(sql)) {
 
-            //how you get the results by treating it as a column
-            int count = results.getInt("count");
+        try(Statement statement = conn.createStatement()) {
 
-            System.out.format("Count = %d\n", count);
-            return count;
+           statement.execute(CREATE_ARTIST_FOR_SONG_VIEW);
+        return true;
+
+
+
         } catch(SQLException e){
-            System.out.println("Query failed: " + e.getMessage() );
-            return -1;
+            System.out.println("Create View failed: " + e.getMessage() );
+            return false;
         }
     }
+
+    //SELECT name, album, track FROM artist_list WHERE title = "Go Your Own Way"
 }
 
 
