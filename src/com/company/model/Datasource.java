@@ -193,6 +193,8 @@ ResultSet results = statement.executeQuery(sb.toString())){
                songArtists.add(songArtist);
            }
 
+           // SELECT COUNT(*) FROM songs
+
            return songArtists;
         } catch (SQLException e){
             System.out.println("Query failed: " + e.getMessage());
@@ -200,14 +202,19 @@ ResultSet results = statement.executeQuery(sb.toString())){
         }
     }
 
+
+    //getting schema data
     public void querySongsMetaData(){
         String sql = "SELECT * FROM " + TABLE_SONGS;
 
         try(Statement statement = conn.createStatement();
         ResultSet results = statement.executeQuery(sql)) {
 
+
             ResultSetMetaData meta = results.getMetaData();
             int numColumns = meta.getColumnCount();
+
+            //loop to print column name
             for (int i = 1; i <= numColumns; i++) {
                 System.out.format("Columns %d in the songs table is names %s\n",
                         i, meta.getColumnName(i));
@@ -215,6 +222,23 @@ ResultSet results = statement.executeQuery(sb.toString())){
         } catch(SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
 
+        }
+    }
+
+    //get count from resultset and assign column names
+    public int getCount(String table) {
+        String sql = "SELECT COUNT(*) AS count FROM " + table;
+        try(Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery(sql)) {
+
+            //how you get the results by treating it as a column
+            int count = results.getInt("count");
+
+            System.out.format("Count = %d\n", count);
+            return count;
+        } catch(SQLException e){
+            System.out.println("Query failed: " + e.getMessage() );
+            return -1;
         }
     }
 }
