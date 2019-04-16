@@ -121,6 +121,9 @@ public class Datasource {
 
     public void close() {
         try {
+            if(querySongInfoView != null){
+                querySongInfoView.close();
+            }
             if (conn != null) {
                 conn.close();
             }
@@ -306,7 +309,7 @@ ResultSet results = statement.executeQuery(sb.toString())){
 
         try {
             querySongInfoView.setString(1, title);
-            ResultSet results = querySongInfoView.executeQuery(title);
+            ResultSet results = querySongInfoView.executeQuery();
 
                 List<SongArtist> songArtists = new ArrayList<>();
                 while (results.next()) {
@@ -318,7 +321,7 @@ ResultSet results = statement.executeQuery(sb.toString())){
                 }
 
                 return songArtists;
-            
+
 
             } catch(SQLException e){
                 System.out.println(" Query failed: " + e.getMessage());
