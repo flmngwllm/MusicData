@@ -5,6 +5,7 @@ import com.company.model.Datasource;
 import com.company.model.SongArtist;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -50,7 +51,15 @@ public class Main {
         datasource.querySongsMetaData();
 
         datasource.createViewForSongArtists();
-songArtists = datasource.querySongInfoView("Go Your Own Way");
+
+
+        //adding the ability for user input
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a song title: ");
+        String title = scanner.nextLine();
+
+
+songArtists = datasource.querySongInfoView(title);
 
 //checking for null as well
 if(songArtists.isEmpty()){
