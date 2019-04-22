@@ -380,20 +380,22 @@ ResultSet results = statement.executeQuery(sb.toString())){
             }
         }
 
-        private int insertArtist(String name) throws SQLException{
 
+        //method for inserting artist
+        private int insertArtist(String name) throws SQLException{
+// checking to see if artist exist
         queryArtist.setString(1, name);
         ResultSet results = queryArtist.executeQuery();
         if(results.next()){
-            return results.getInt();
+            return results.getInt(1);
         } else {
             // Insert the artist
             insertIntoArtist.setString(1, name);
             int affectedRows = insertIntoArtist.executeUpdate();
             if (affectedRows != 1){
-                throw new SQLException("Couldnt inset artist");
+                throw new SQLException("Couldn't inset artist");
             }
-
+// retrieving id for new created record
             ResultSet generateKeys = insertIntoArtist.getGeneratedKeys();
             if(generateKeys.next()){
                 return generateKeys.getInt(1);
@@ -402,6 +404,33 @@ ResultSet results = statement.executeQuery(sb.toString())){
             }
         }
         }
+
+
+    //method for inserting artist
+    private int insertAlbum(String name, int artistId) throws SQLException{
+// checking to see if artist exist
+        queryAlbum.setString(1, name);
+        ResultSet results = queryArtist.executeQuery();
+        if(results.next()){
+            return results.getInt(1);
+        } else {
+            // Insert the artist
+            insertIntoAlbum.setString(1, name);
+            insertIntoAlbum.setInt(2, artistId);
+            int affectedRows = insertIntoAlbum.executeUpdate();
+
+            if (affectedRows != 1){
+                throw new SQLException("Couldn't inset album");
+            }
+// retrieving id for new created record
+            ResultSet generateKeys = insertIntoAlbum.getGeneratedKeys();
+            if(generateKeys.next()){
+                return generateKeys.getInt(1);
+            } else {
+                throw new SQLException("Couldn't get _id for album");
+            }
+        }
+    }
 
 
 }
