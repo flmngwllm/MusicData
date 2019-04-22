@@ -73,5 +73,9 @@ for(SongArtist artist : songArtists){
             " Track number = " + artist.getTrack());
 }
         datasource.close();
+
+
+
+// SELECT name, album, track FROM artist_list WHERE title = ? OR artist = ?
     }
 }

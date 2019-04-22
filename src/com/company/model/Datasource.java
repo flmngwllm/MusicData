@@ -91,6 +91,16 @@ public class Datasource {
             COLUMN_SONGS_ALBUM + ", " + COLUMN_SONGS_TRACK + " FROM " + TABLE_ARTIST_SONG_VIEW +
             " WHERE " + COLUMN_SONGS_TITLE + " = ?";
 
+    public static final String INSERT_ARTIST = "INSERT INTO " + TABLE_ARTISTS +
+            '(' + COLUMN_ARTIST_NAME + ") VALUES(?)";
+
+    public static final String INSERT_ALBUMS = "INSERT INTO " + TABLE_ALBUMS +
+            '(' + COLUMN_ALBUM_NAME + ", " + COLUMN_ALBUM_ARTIST + ") VALUES(?, ?)";
+
+    public static final String INSERT_SONGS = "INSERT INTO " + TABLE_SONGS +
+            '(' + COLUMN_SONGS_TITLE + ", " + COLUMN_SONGS_TRACK + ", " + COLUMN_SONGS_ALBUM +
+            ") VALUES(?, ?, ?)";
+
 
 
 
@@ -103,6 +113,9 @@ public class Datasource {
 
 
     private PreparedStatement querySongInfoView;
+    private PreparedStatement insertIntoArtist;
+    private PreparedStatement insertIntoAlbum;
+    private PreparedStatement insertIntoSongs;
 
 
 
@@ -110,6 +123,9 @@ public class Datasource {
         try {
             conn = DriverManager.getConnection(CONNECTION_STRING);
             querySongInfoView = conn.prepareStatement(QUERY_VIEW_SONG_INFO_PREP);
+            insertIntoArtist = conn.prepareStatement(INSERT_ARTIST, Statement.RETURN_GENERATED_KEYS);
+            insertIntoAlbum = conn.prepareStatement(INSERT_ALBUMS, Statement.RETURN_GENERATED_KEYS);
+            insertIntoSongs = conn.prepareStatement(INSERT_SONGS);
 
 
             return true;
