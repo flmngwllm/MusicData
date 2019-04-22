@@ -101,6 +101,12 @@ public class Datasource {
             '(' + COLUMN_SONGS_TITLE + ", " + COLUMN_SONGS_TRACK + ", " + COLUMN_SONGS_ALBUM +
             ") VALUES(?, ?, ?)";
 
+    public static final String QUERY_ARTIST = "SELECT " + COLUMN_ARTIST_ID + " FROM " +
+            TABLE_ARTISTS + " WHERE " + COLUMN_ARTIST_NAME + " = ?";
+
+    public static final String QUERY_ALBUM = "SELECT " + COLUMN_ALBUM_ID + " FROM " +
+            TABLE_ALBUMS + " WHERE " + COLUMN_ALBUM_NAME + " = ?";
+
 
 
 
@@ -116,6 +122,8 @@ public class Datasource {
     private PreparedStatement insertIntoArtist;
     private PreparedStatement insertIntoAlbum;
     private PreparedStatement insertIntoSongs;
+    private PreparedStatement queryArtist;
+    private PreparedStatement queryAlbum;
 
 
 
@@ -126,6 +134,8 @@ public class Datasource {
             insertIntoArtist = conn.prepareStatement(INSERT_ARTIST, Statement.RETURN_GENERATED_KEYS);
             insertIntoAlbum = conn.prepareStatement(INSERT_ALBUMS, Statement.RETURN_GENERATED_KEYS);
             insertIntoSongs = conn.prepareStatement(INSERT_SONGS);
+            queryArtist = conn.prepareStatement(QUERY_ARTIST);
+            queryAlbum = conn.prepareStatement(QUERY_ALBUM);
 
 
             return true;
@@ -147,11 +157,20 @@ public class Datasource {
 
             if (insertIntoAlbum != null) {
                 insertIntoAlbum.close();
+            }
 
                 if (insertIntoSongs != null) {
                     insertIntoSongs.close();
                 }
-            }
+
+                if(queryArtist != null){
+                    queryArtist.close();
+                }
+
+                if (queryAlbum != null) {
+                    queryAlbum.close();
+                }
+
             if (conn != null) {
                 conn.close();
 
@@ -360,6 +379,31 @@ ResultSet results = statement.executeQuery(sb.toString())){
 
             }
         }
+
+        private int insertArtist(String name) throws SQLException{
+
+        queryArtist.setString(1, name);
+        ResultSet results = queryArtist.executeQuery();
+        if(results.next()){
+            return results.getInt();
+        } else {
+            // Insert the artist
+            insertIntoArtist.setString(1, name);
+            int affectedRows = insertIntoArtist.executeUpdate();
+            if (affectedRows != 1){
+                throw new SQLException("Couldnt inset artist");
+            }
+
+            ResultSet generateKeys = insertIntoArtist.getGeneratedKeys();
+            if(generateKeys.next()){
+                return generateKeys.getInt(1);
+            } else {
+                throw new SQLException("Couldn't get _id for artist");
+            }
+        }
+        }
+
+
 }
 
 
