@@ -140,8 +140,22 @@ public class Datasource {
             if(querySongInfoView != null){
                 querySongInfoView.close();
             }
+
+            if (insertIntoArtist != null){
+                insertIntoArtist.close();
+            }
+
+            if (insertIntoAlbum != null) {
+                insertIntoAlbum.close();
+
+                if (insertIntoSongs != null) {
+                    insertIntoSongs.close();
+                }
+            }
             if (conn != null) {
                 conn.close();
+
+
             }
         } catch (SQLException e) {
             System.out.println("Couldn't close connection " + e.getMessage());
