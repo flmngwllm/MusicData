@@ -72,6 +72,8 @@ for(SongArtist artist : songArtists){
             " Album name = " + artist.getAlbumName() +
             " Track number = " + artist.getTrack());
 }
+
+        datasource.insertSongs("Touch of Gray", "Grateful Dead", "In The Dark", 1 );
         datasource.close();
 
 

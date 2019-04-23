@@ -410,7 +410,7 @@ ResultSet results = statement.executeQuery(sb.toString())){
     private int insertAlbum(String name, int artistId) throws SQLException{
 // checking to see if artist exist
         queryAlbum.setString(1, name);
-        ResultSet results = queryArtist.executeQuery();
+        ResultSet results = queryAlbum.executeQuery();
         if(results.next()){
             return results.getInt(1);
         } else {
@@ -433,6 +433,46 @@ ResultSet results = statement.executeQuery(sb.toString())){
     }
 
 
+    //method for inserting artist
+    public void insertSongs(String title, String artist, String album,  int track){
+
+        try{
+            conn.setAutoCommit(false);
+
+            int artistId = insertArtist(artist);
+            int albumId = insertAlbum(album, artistId);
+            insertIntoSongs.setInt(1, track);
+            insertIntoSongs.setString(2, title);
+            insertIntoSongs.setInt(3, albumId);
+
+
+            int affectedRows = insertIntoSongs.executeUpdate();
+
+                if (affectedRows == 1){
+                    conn.commit();
+                } else {
+                    throw new SQLException("The song insert failed");
+                }
+
+        } catch(SQLException e) {
+            System.out.println("Insert song exception " + e.getMessage());
+            try{
+                System.out.println("Performing rollback");
+                conn.rollback();
+
+            }catch (SQLException e2){
+                System.out.println("Things are bad! " + e2.getMessage());
+            }
+        } finally {
+            try{
+                System.out.println("Resetting default commit behaviour");
+                conn.setAutoCommit(true);
+            }catch(SQLException e) {
+                System.out.println("Couldn't reset auto commit! " + e.getMessage());
+            }
+        }
+
+    }
 }
 
 
